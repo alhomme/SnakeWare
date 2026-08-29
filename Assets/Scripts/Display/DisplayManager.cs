@@ -15,7 +15,6 @@ public class DisplayManager : MonoBehaviour
     private Vector3 sNewGameBody1Position = new Vector3(4, 0, 2);
     private Vector3 sNewGameBody2Position = new Vector3(4, 0, 1);
     private Vector3 sNewGameBody3Position = new Vector3(4, 0, 0);
-    private bool mMove = false; // Determine if the snake should be moving
     private List<SnakePart> mSnakeParts;
     private IEnumerator mCoroutine;
 
@@ -23,6 +22,9 @@ public class DisplayManager : MonoBehaviour
     [SerializeField] private RSO_SnakePositions mSnakePosRSO;
     [SerializeField] private RSO_Direction mSnakeDirectionRSO;
     [SerializeField] private RSO_Speed mSnakeSpeedRSO;
+    [SerializeField] private RSO_HasMoved mSnakeHasMovedRSO;
+
+    [SerializeField] private RSE_EndGame mEndEvent;
 
     private void OnEnable()
     {
@@ -33,6 +35,7 @@ public class DisplayManager : MonoBehaviour
         {
             case GameSource.NewGame:
                 InitSnake();
+                // Instantiate new Item
                 break;
             case GameSource.MiniGame:
                 // Retrieve snake positions in RSO, instantiate the parts
@@ -42,9 +45,10 @@ public class DisplayManager : MonoBehaviour
         }
 
         mSnakeDirectionRSO.OnChanged += OnDirectionChanged;
+        mEndEvent.Event += PauseSnake;
 
         // Start moving
-        mMove = true;
+        mSnakeHasMovedRSO.Value = false;
         mCoroutine = Move_Coroutine();
         StartCoroutine(mCoroutine);
 
@@ -52,14 +56,16 @@ public class DisplayManager : MonoBehaviour
 
     public void OnDisable()
     {
+        StopCoroutine(mCoroutine);
         mSnakeDirectionRSO.OnChanged -= OnDirectionChanged;
+        mEndEvent.Event -= PauseSnake;
     }
 
     private IEnumerator Move_Coroutine()
     {
-        while (mMove)
+        while (true)
         {
-            yield return new WaitForSeconds(mSnakeSpeedRSO.Value);
+            yield return new WaitForSeconds(1 / mSnakeSpeedRSO.Value);
 
             //Debug.Log("New Movement");
             Vector3 frontPosition = Vector3.zero;
@@ -106,14 +112,22 @@ public class DisplayManager : MonoBehaviour
 
             }
 
+            mSnakeHasMovedRSO.Value = true;
             UpdateRSO_Snake();
         }
     }
 
     private void OnDirectionChanged(SnakeDirection newDirection)
     {
+        mSnakeHasMovedRSO.Value = false;
         mSnakeParts[0].Rotation = Quaternion.Euler(0, (float)newDirection, 0);
         mSnakeParts[0].Instance.transform.rotation = mSnakeParts[0].Rotation;
+    }
+
+    private void PauseSnake()
+    {
+        // Stop snake from moving more
+        StopCoroutine(mCoroutine);
     }
 
 

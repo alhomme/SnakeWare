@@ -10,6 +10,7 @@ TagManager:
   - ItemQTE
   - ItemMash
   - ItemMemory
+  - Snake
   layers:
   - Default
   - TransparentFX

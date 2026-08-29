@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 1677939200395683846}
   - component: {fileID: 6396143436852618627}
   - component: {fileID: 8069998840329618256}
+  - component: {fileID: -8079775770407581685}
   m_Layer: 0
   m_Name: SnakeHead
-  m_TagString: Untagged
+  m_TagString: Snake
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,7 +103,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 449632685116981767}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 9dde7c6ee0ca2b24789154ef8dcc412a, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -114,8 +115,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.21676326, y: 1, z: 0.47477326}
+  m_Center: {x: 0.33, y: 0, z: 0.04417403}
 --- !u!54 &8069998840329618256
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -143,6 +144,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-8079775770407581685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449632685116981767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 379645ee10f461c429f568f7a78b8a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SnakeManager
+  mCollisionEvent: {fileID: 11400000, guid: fdd5363af8be82d4cb5ffe19d83ee6af, type: 2}
 --- !u!1 &3443532943707676750
 GameObject:
   m_ObjectHideFlags: 0

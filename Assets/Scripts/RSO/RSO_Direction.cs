@@ -7,17 +7,6 @@ public enum SnakeDirection
 }
 
 [CreateAssetMenu(fileName = "RSO_Direction", menuName = "SnakeRSO/RSO Direction")]
-public class RSO_Direction : ScriptableObject
+public class RSO_Direction : RuntimeScriptableObject<SnakeDirection>
 {
-    private SnakeDirection mDirection = SnakeDirection.RIGHT;
-    public event Action<SnakeDirection> OnChanged; 
-
-    public SnakeDirection Value
-    {
-        get { return mDirection; }
-        set {
-            mDirection = value;
-            OnChanged?.Invoke(mDirection);
-        }
-    }
 }

@@ -6,13 +6,6 @@ public enum GameSource
 }
 
 [CreateAssetMenu(fileName = "RSO_Source", menuName = "SnakeRSO/RSO Source")]
-public class RSO_Source : ScriptableObject
+public class RSO_Source : RuntimeScriptableObject<GameSource>
 {
-    private GameSource mSource = GameSource.NewGame;
-
-    public GameSource Value
-    {  
-       get { return mSource; } 
-       set { mSource = value; }
-    }
 }
