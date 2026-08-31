@@ -148,14 +148,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac8e75ef287384040b2eb1f3c74039b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DisplayManager
-  snakeHeadPrefab: {fileID: 449632685116981767, guid: 7c23e6929a92eed479d98b508022f66e, type: 3}
-  snakeBodyPrefab: {fileID: 1362008941513415624, guid: a258d7b7f749e67418d508326aa50b75, type: 3}
+  mSnakeHeadPrefab: {fileID: 449632685116981767, guid: 7c23e6929a92eed479d98b508022f66e, type: 3}
+  mSnakeBodyPrefab: {fileID: 1362008941513415624, guid: a258d7b7f749e67418d508326aa50b75, type: 3}
+  mItemPrefabs:
+  - {fileID: 3402294996306096638, guid: 021a0eaa67617ac479c275f5c646ff55, type: 3}
   mSourceRSO: {fileID: 11400000, guid: dee2e2afa23416549ad6f5937484e735, type: 2}
   mSnakePosRSO: {fileID: 11400000, guid: 05b1902d4ddaa774aa71254dd9901eda, type: 2}
   mSnakeDirectionRSO: {fileID: 11400000, guid: b37f9f7bddb98754cb31a09fcd240a9e, type: 2}
   mSnakeSpeedRSO: {fileID: 11400000, guid: c9bfd03f808a3004facd43d2f9bf82e4, type: 2}
   mSnakeHasMovedRSO: {fileID: 11400000, guid: 36ffe015dc5842c4090fa51ad58330fa, type: 2}
-  mEndEvent: {fileID: 11400000, guid: 0f050212858da5a41b2e97670818a6d9, type: 2}
+  mEndRSE: {fileID: 11400000, guid: 0f050212858da5a41b2e97670818a6d9, type: 2}
+  mSuccessRSE: {fileID: 11400000, guid: 9d23b93fe1f6bf3458519e03c00c8f6d, type: 2}
 --- !u!4 &248471810
 Transform:
   m_ObjectHideFlags: 0
@@ -205,13 +208,15 @@ MonoBehaviour:
   moveRightActionRef: {fileID: -4225590803077951190, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   moveLeftActionRef: {fileID: 9084805298149861233, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   mSourceRSO: {fileID: 11400000, guid: dee2e2afa23416549ad6f5937484e735, type: 2}
+  mResultRSO: {fileID: 11400000, guid: 70f1c246c2f1dac43a2ef2d0f2980475, type: 2}
   mSnakeLifeRSO: {fileID: 11400000, guid: 2c67612c1e5587947aeba41f6592468e, type: 2}
   mSnakeScoreRSO: {fileID: 11400000, guid: c8d3225151fe566479ddd8389b38698c, type: 2}
   mSnakeDirectionRSO: {fileID: 11400000, guid: b37f9f7bddb98754cb31a09fcd240a9e, type: 2}
   mSnakeSpeedRSO: {fileID: 11400000, guid: c9bfd03f808a3004facd43d2f9bf82e4, type: 2}
   mSnakeHasMovedRSO: {fileID: 11400000, guid: 36ffe015dc5842c4090fa51ad58330fa, type: 2}
-  mCollisionEvent: {fileID: 11400000, guid: fdd5363af8be82d4cb5ffe19d83ee6af, type: 2}
-  mEndEvent: {fileID: 11400000, guid: 0f050212858da5a41b2e97670818a6d9, type: 2}
+  mCollisionRSE: {fileID: 11400000, guid: fdd5363af8be82d4cb5ffe19d83ee6af, type: 2}
+  mEndRSE: {fileID: 11400000, guid: 0f050212858da5a41b2e97670818a6d9, type: 2}
+  mSuccessRSE: {fileID: 11400000, guid: 9d23b93fe1f6bf3458519e03c00c8f6d, type: 2}
 --- !u!4 &322147525
 Transform:
   m_ObjectHideFlags: 0

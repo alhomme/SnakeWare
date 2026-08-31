@@ -1,25 +1,28 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public InputActionReference moveUpActionRef;
-    public InputActionReference moveDownActionRef;
-    public InputActionReference moveRightActionRef;
-    public InputActionReference moveLeftActionRef;
+    [SerializeField] private InputActionReference moveUpActionRef;
+    [SerializeField] private InputActionReference moveDownActionRef;
+    [SerializeField] private InputActionReference moveRightActionRef;
+    [SerializeField] private InputActionReference moveLeftActionRef;
 
     private float mDefaultSpeed = 2.0f;
-
+    // RSO
     [SerializeField] private RSO_Source mSourceRSO;
+    [SerializeField] private RSO_MG_Result mResultRSO;
     [SerializeField] private RSO_Life mSnakeLifeRSO;
     [SerializeField] private RSO_Score mSnakeScoreRSO;
     [SerializeField] private RSO_Direction mSnakeDirectionRSO;
     [SerializeField] private RSO_Speed mSnakeSpeedRSO;
     [SerializeField] private RSO_HasMoved mSnakeHasMovedRSO;
-
-    [SerializeField] private RSE_Collision mCollisionEvent;
-    [SerializeField] private RSE_EndGame mEndEvent;
+    // RSE
+    [SerializeField] private RSE_Collision mCollisionRSE;
+    [SerializeField] private RSE_EndGame mEndRSE;
+    [SerializeField] private RSE_MG_Success mSuccessRSE;
 
     private void OnEnable()
     {
@@ -40,24 +43,35 @@ public class GameManager : MonoBehaviour
             case GameSource.MiniGame:
                 // Retrieve result
                 // Mini Game succeeded
-                //mSnakeScoreRSO.Value += (int)(100 * mSnakeSpeedRSO.Value);
-                //mSnakeSpeedRSO.Value += 0.5f;
+                Debug.Log("Source Mini Game, " + mResultRSO.Value);
+                if (mResultRSO.Value == MG_Result.Success)
+                {
+                    //mSnakeScoreRSO.Value += (int)(100 * mSnakeSpeedRSO.Value);
+                    //mSnakeSpeedRSO.Value += 0.5f;
+                    mSuccessRSE.Dispatch();
+                }
+                else if (mResultRSO.Value == MG_Result.Fail)
+                {
 
-                // Mini Game failed
-                // mSnakeLifeRSO.Value--;
+                    // Mini Game failed
+                    // mSnakeLifeRSO.Value--;
+                }
+
+                    // TO REMOVE, FOR TESTING PURPOSE
+                    mSourceRSO.Value = GameSource.NewGame;
                 break;
         }
 
-        mCollisionEvent.Event += OnCollision;
-        mEndEvent.Event += OnGameEnded;
+        mCollisionRSE.Event += OnCollision;
+        mEndRSE.Event += OnGameEnded;
     }
 
     private void OnDisable()
     {
         DisableMoveInputs();
 
-        mCollisionEvent.Event -= OnCollision;
-        mEndEvent.Event -= OnGameEnded;
+        mCollisionRSE.Event -= OnCollision;
+        mEndRSE.Event -= OnGameEnded;
     }
 
     private void DisableMoveInputs()
@@ -78,8 +92,14 @@ public class GameManager : MonoBehaviour
             mSnakeLifeRSO.Value = 0;
         }
         else if (other.StartsWith("Item"))
-        { 
+        {
             // Launch Mini Game
+            switch (other)
+            {
+                case "ItemBar":
+                    SceneManager.LoadScene(2);
+                    break;
+            }
         }
     }
 

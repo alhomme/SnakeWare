@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379645ee10f461c429f568f7a78b8a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SnakeManager
-  mCollisionEvent: {fileID: 11400000, guid: fdd5363af8be82d4cb5ffe19d83ee6af, type: 2}
+  mCollisionRSE: {fileID: 11400000, guid: fdd5363af8be82d4cb5ffe19d83ee6af, type: 2}
 --- !u!1 &3443532943707676750
 GameObject:
   m_ObjectHideFlags: 0
