@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -22,14 +23,33 @@ public class GameManager : MonoBehaviour
     // RSE
     [SerializeField] private RSE_Collision mCollisionRSE;
     [SerializeField] private RSE_EndGame mEndRSE;
-    [SerializeField] private RSE_MG_Success mSuccessRSE;
+    [SerializeField] private RSE_NewRound mNewRoundRSE;
 
     private void OnEnable()
     {
+        Debug.Log("GameManager: OnEnable");
+
         moveUpActionRef.action.performed += OnMoveUp;
         moveDownActionRef.action.performed += OnMoveDown;
         moveRightActionRef.action.performed += OnMoveRight;
         moveLeftActionRef.action.performed += OnMoveLeft;
+
+        mCollisionRSE.Event += OnCollision;
+        mEndRSE.Event += OnGameEnded;
+    }
+
+    private void OnDisable()
+    {
+        DisableMoveInputs();
+
+        mCollisionRSE.Event -= OnCollision;
+        mEndRSE.Event -= OnGameEnded;
+    }
+
+    private void Start()
+    {
+        Debug.Log("GameManager: Start");
+        bool growSnake = false;
 
         switch (mSourceRSO.Value)
         {
@@ -46,33 +66,37 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Source Mini Game, " + mResultRSO.Value);
                 if (mResultRSO.Value == MG_Result.Success)
                 {
-                    //mSnakeScoreRSO.Value += (int)(100 * mSnakeSpeedRSO.Value);
-                    //mSnakeSpeedRSO.Value += 0.5f;
-                    mSuccessRSE.Dispatch();
+                    mSnakeScoreRSO.Value += 1; // (int)(100 * mSnakeSpeedRSO.Value);
+                    mSnakeSpeedRSO.Value += 0.5f;
+                    growSnake = true;
                 }
                 else if (mResultRSO.Value == MG_Result.Fail)
                 {
-
                     // Mini Game failed
-                    // mSnakeLifeRSO.Value--;
+                    mSnakeLifeRSO.Value--;
                 }
 
-                    // TO REMOVE, FOR TESTING PURPOSE
-                    mSourceRSO.Value = GameSource.NewGame;
+                // TO REMOVE, FOR TESTING PURPOSE
+                // USED TO AVOID STARTING FROM MAIN MENU EVERY TIME
+                mSourceRSO.Value = GameSource.NewGame;
                 break;
         }
 
-        mCollisionRSE.Event += OnCollision;
-        mEndRSE.Event += OnGameEnded;
+
+        StartCoroutine(StartRoundCoroutine(growSnake));
     }
 
-    private void OnDisable()
+    private IEnumerator StartRoundCoroutine(bool growSnake)
     {
-        DisableMoveInputs();
-
-        mCollisionRSE.Event -= OnCollision;
-        mEndRSE.Event -= OnGameEnded;
+        // Wait 0.5 seconds before starting the round
+        // Allows player to get ready
+        // TODO: Add a "Ready ? GO!" Panel
+        yield return new WaitForSeconds(0.5f);
+        if (mSnakeLifeRSO.Value > 0)
+            mNewRoundRSE.Dispatch(growSnake);
     }
+
+
 
     private void DisableMoveInputs()
     {
@@ -105,6 +129,7 @@ public class GameManager : MonoBehaviour
 
     private void OnGameEnded()
     {
+        Debug.Log("GameManager: OnGameEnded");
         DisableMoveInputs();
 
         // Check for high score and save

@@ -29,42 +29,16 @@ public class DisplayManager : MonoBehaviour
     [SerializeField] private RSO_HasMoved mSnakeHasMovedRSO;
     // RSE
     [SerializeField] private RSE_EndGame mEndRSE;
-    [SerializeField] private RSE_MG_Success mSuccessRSE;
+    [SerializeField] private RSE_NewRound mNewRoundRSE;
 
     private void OnEnable()
     {
         //Debug.Log("DisplayManager OnEnable");
-        mSnakeParts = new List<SnakePart>();
-
-        switch (mSourceRSO.Value)
-        {
-            case GameSource.NewGame:
-                Debug.Log("New Game");
-                InitSnake();
-                
-                break;
-            case GameSource.MiniGame:
-                Debug.Log("Return from mini game");
-                // Retrieve snake positions in RSO, instantiate the parts
-                RetrieveSnake();
-
-                break;
-        }
-
-        // Instantiate new Item
-        int randomItem = UnityEngine.Random.Range(0, mItemPrefabs.Count);
-        Debug.Log("Item n°" + randomItem + " = " + mItemPrefabs[randomItem].tag);
-        Instantiate(mItemPrefabs[randomItem], GenerateItemPosition(), Quaternion.identity);
-
         mSnakeDirectionRSO.OnChanged += OnDirectionChanged;
         mEndRSE.Event += PauseSnake;
-        mSuccessRSE.Event += GrowSnake;
+        mNewRoundRSE.Event += StartNewRound;
 
-        // Start moving
-        mSnakeHasMovedRSO.Value = false;
         mCoroutine = MoveCoroutine();
-        StartCoroutine(mCoroutine);
-
     }
 
     public void OnDisable()
@@ -72,7 +46,89 @@ public class DisplayManager : MonoBehaviour
         StopCoroutine(mCoroutine);
         mSnakeDirectionRSO.OnChanged -= OnDirectionChanged;
         mEndRSE.Event -= PauseSnake;
-        mSuccessRSE.Event -= GrowSnake;
+        mNewRoundRSE.Event -= StartNewRound;
+    }
+
+    private void Start()
+    {
+        mSnakeParts = new List<SnakePart>();
+
+        switch (mSourceRSO.Value)
+        {
+            case GameSource.NewGame:
+                Debug.Log("New Game");
+                InitSnake();
+                break;
+            case GameSource.MiniGame:
+                Debug.Log("Return from mini game");
+                // Retrieve snake positions in RSO, instantiate the parts
+                RetrieveSnake();
+                break;
+        }
+
+        // Instantiate new Item
+        int randomItem = UnityEngine.Random.Range(0, mItemPrefabs.Count);
+        Debug.Log("Item n°" + randomItem + " = " + mItemPrefabs[randomItem].tag);
+        Instantiate(mItemPrefabs[randomItem], GenerateItemPosition(), Quaternion.identity);        
+    }
+
+    private void PauseSnake()
+    {
+        // Stop snake from moving more
+        StopCoroutine(mCoroutine);
+    }
+
+    private void StartNewRound(bool growSnake)
+    {
+        if (growSnake)
+        {
+            Debug.Log("Grow Snake");
+
+            int lastIdx = mSnakePosRSO.Value.Count - 1;
+
+            float newX = mSnakePosRSO.Value[lastIdx].x +
+                (mSnakePosRSO.Value[lastIdx].x - mSnakePosRSO.Value[lastIdx - 1].x);
+            float newZ = mSnakePosRSO.Value[lastIdx].z +
+                (mSnakePosRSO.Value[lastIdx].z - mSnakePosRSO.Value[lastIdx - 1].z);
+
+            Vector3 newPosition = new Vector3(newX, mSnakePosRSO.Value[lastIdx].y, newZ);
+
+            //Debug.Log("New part at " + newPosition);
+
+            if (newPosition.x < 0 || newPosition.x > mSizeMap[0])
+            {
+                newPosition.x = mSnakePosRSO.Value[lastIdx].x;
+                if (newPosition.z < mSizeMap[1] / 2)
+                    newPosition.z++;
+                else
+                    newPosition.z--;
+
+                //Debug.Log("Corrected position at " + newPosition);
+            }
+            if (newPosition.z < 0 || newPosition.z > mSizeMap[1])
+            {
+                newPosition.z = mSnakePosRSO.Value[lastIdx].z;
+                if (newPosition.x < mSizeMap[0] / 2)
+                    newPosition.x++;
+                else
+                    newPosition.x--;
+
+                //Debug.Log("Corrected position at " + newPosition);
+            }
+
+            SnakePart newBodyPart = new SnakePart(
+                Instantiate(mSnakeBodyPrefab, newPosition, Quaternion.identity),
+                newPosition,
+                Quaternion.identity);
+
+            mSnakeParts.Add(newBodyPart);
+            mSnakePosRSO.Value.Add(newBodyPart.Position);
+        }
+
+
+        // Start moving the snake
+        mSnakeHasMovedRSO.Value = true;
+        StartCoroutine(mCoroutine);
     }
 
     private IEnumerator MoveCoroutine()
@@ -137,58 +193,6 @@ public class DisplayManager : MonoBehaviour
         mSnakeParts[0].Rotation = Quaternion.Euler(0, (float)newDirection, 0);
         mSnakeParts[0].Instance.transform.rotation = mSnakeParts[0].Rotation;
     }
-
-    private void PauseSnake()
-    {
-        // Stop snake from moving more
-        StopCoroutine(mCoroutine);
-    }
-
-    private void GrowSnake()
-    {
-        Debug.Log("Grow Snake");
-
-        int lastIdx = mSnakePosRSO.Value.Count - 1;
-
-        float newX = mSnakePosRSO.Value[lastIdx].x + 
-            (mSnakePosRSO.Value[lastIdx].x - mSnakePosRSO.Value[lastIdx-1].x);
-        float newZ = mSnakePosRSO.Value[lastIdx].z +
-            (mSnakePosRSO.Value[lastIdx].z - mSnakePosRSO.Value[lastIdx - 1].z);
-
-        Vector3 newPosition = new Vector3(newX, mSnakePosRSO.Value[lastIdx].y, newZ);
-
-        Debug.Log("New part at " + newPosition);
-
-        if (newPosition.x < 0 || newPosition.x > mSizeMap[0])
-        {
-            newPosition.x = mSnakePosRSO.Value[lastIdx].x;
-            if (newPosition.z < mSizeMap[1] / 2)
-                newPosition.z++;
-            else
-                newPosition.z--;
-
-            Debug.Log("Corrected position at " + newPosition);
-        }
-        if (newPosition.z < 0 || newPosition.z > mSizeMap[1])
-        {
-            newPosition.z = mSnakePosRSO.Value[lastIdx].z;
-            if (newPosition.x < mSizeMap[0] / 2)
-                newPosition.x++;
-            else
-                newPosition.x--;
-
-            Debug.Log("Corrected position at " + newPosition);
-        }
-
-        SnakePart newBodyPart = new SnakePart(
-            Instantiate(mSnakeBodyPrefab, newPosition, Quaternion.identity),
-            newPosition,
-            Quaternion.identity);
-
-        mSnakeParts.Add(newBodyPart);
-        mSnakePosRSO.Value.Add(newBodyPart.Position);
-    }
-
 
     private void InitSnake()
     {
@@ -277,15 +281,15 @@ public class DisplayManager : MonoBehaviour
             randomX = UnityEngine.Random.Range(minXZ, maxX);
             randomZ = UnityEngine.Random.Range(minXZ, maxZ);
             itemPosition = new Vector3(randomX, 0, randomZ);
-            Debug.Log("Random position: " + itemPosition);
+            //Debug.Log("Random position: " + itemPosition);
             if (!mSnakePosRSO.Value.Contains(itemPosition))
             {
-                Debug.Log("Valid random postion");
+                //Debug.Log("Valid random postion");
                 positionIsGood = true;
             }
         }
 
-        Debug.Log("Return " + itemPosition);
+        Debug.Log("Item position: " + itemPosition);
 
         return itemPosition;
     }

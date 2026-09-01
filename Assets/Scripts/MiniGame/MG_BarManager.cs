@@ -19,8 +19,9 @@ public class MG_BarManager : MonoBehaviour
 
     private IEnumerator WaitCoroutine()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         mResultRSO.Value = MG_Result.Success;
+        //mResultRSO.Value = MG_Result.Fail;
         SceneManager.LoadScene(1);
     }
 }
