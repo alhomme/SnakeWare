@@ -12,13 +12,9 @@ public class DisplayManager : MonoBehaviour
 
     [SerializeField] private GameObject mSnakeHeadPrefab;
     [SerializeField] private GameObject mSnakeBodyPrefab;
-    [SerializeField] private List<GameObject> mItemPrefabs;
 
     private int[] mSizeMap = { 8, 16 };
-    private Vector3 sNewGameHeadPosition = new Vector3(4, 0, 4);
-    private Vector3 sNewGameBody1Position = new Vector3(4, 0, 3);
-    private Vector3 sNewGameBody2Position = new Vector3(4, 0, 2);
-    private Vector3 sNewGameBody3Position = new Vector3(4, 0, 1);
+    private Vector3Int sNewGameHeadPosition = new Vector3Int(4, 0, 4);
     private List<SnakePart> mSnakeParts;
     private IEnumerator mCoroutine;
     //RSO
@@ -30,6 +26,8 @@ public class DisplayManager : MonoBehaviour
     // RSE
     [SerializeField] private RSE_EndGame mEndRSE;
     [SerializeField] private RSE_NewRound mNewRoundRSE;
+    // SSO
+    [SerializeField] private SSO_Items mItemsSSO;
 
     private void OnEnable()
     {
@@ -67,9 +65,10 @@ public class DisplayManager : MonoBehaviour
         }
 
         // Instantiate new Item
-        int randomItem = UnityEngine.Random.Range(0, mItemPrefabs.Count);
-        Debug.Log("Item n°" + randomItem + " = " + mItemPrefabs[randomItem].tag);
-        Instantiate(mItemPrefabs[randomItem], GenerateItemPosition(), Quaternion.identity);        
+        //int randomItem = UnityEngine.Random.Range(0, mItemsSSO.Value.Count);
+        int randomItem = 0;
+        Debug.Log("Item n°" + randomItem + " = " + mItemsSSO.Value[randomItem].tag);
+        Instantiate(mItemsSSO.Value[randomItem], GenerateItemPosition(), Quaternion.identity);        
     }
 
     private void PauseSnake()
@@ -86,12 +85,12 @@ public class DisplayManager : MonoBehaviour
 
             int lastIdx = mSnakePosRSO.Value.Count - 1;
 
-            float newX = mSnakePosRSO.Value[lastIdx].x +
+            int newX = mSnakePosRSO.Value[lastIdx].x +
                 (mSnakePosRSO.Value[lastIdx].x - mSnakePosRSO.Value[lastIdx - 1].x);
-            float newZ = mSnakePosRSO.Value[lastIdx].z +
+            int newZ = mSnakePosRSO.Value[lastIdx].z +
                 (mSnakePosRSO.Value[lastIdx].z - mSnakePosRSO.Value[lastIdx - 1].z);
 
-            Vector3 newPosition = new Vector3(newX, mSnakePosRSO.Value[lastIdx].y, newZ);
+            Vector3Int newPosition = new Vector3Int(newX, mSnakePosRSO.Value[lastIdx].y, newZ);
 
             //Debug.Log("New part at " + newPosition);
 
@@ -138,7 +137,7 @@ public class DisplayManager : MonoBehaviour
             yield return new WaitForSeconds(1 / mSnakeSpeedRSO.Value);
 
             //Debug.Log("New Movement");
-            Vector3 frontPosition = Vector3.zero;
+            Vector3Int frontPosition = Vector3Int.zero;
 
             foreach (SnakePart part in mSnakeParts)
             {
@@ -176,8 +175,8 @@ public class DisplayManager : MonoBehaviour
                 }
 
                 // Store so that next body part moves to front position
-                frontPosition.x = part.Instance.transform.position.x;
-                frontPosition.z = part.Instance.transform.position.z;
+                frontPosition.x = (int)part.Instance.transform.position.x;
+                frontPosition.z = (int)part.Instance.transform.position.z;
                 part.Instance.transform.position = part.Position;
 
             }
@@ -202,25 +201,19 @@ public class DisplayManager : MonoBehaviour
             sNewGameHeadPosition,
             Quaternion.Euler(0, (float)mSnakeDirectionRSO.Value, 0));
 
-        SnakePart bodyPart1 = new SnakePart(
-            Instantiate(mSnakeBodyPrefab, sNewGameBody1Position, Quaternion.identity),
-            sNewGameBody1Position,
-            Quaternion.identity);
-
-        SnakePart bodyPart2 = new SnakePart(
-            Instantiate(mSnakeBodyPrefab, sNewGameBody2Position, Quaternion.identity),
-            sNewGameBody2Position,
-            Quaternion.identity);
-
-        SnakePart bodyPart3 = new SnakePart(
-            Instantiate(mSnakeBodyPrefab, sNewGameBody3Position, Quaternion.identity),
-            sNewGameBody3Position,
-            Quaternion.identity);
-
         mSnakeParts.Add(headPart);
-        mSnakeParts.Add(bodyPart1);
-        mSnakeParts.Add(bodyPart2);
-        mSnakeParts.Add(bodyPart3);
+
+        for (int i = 1; i < 4; i++)
+        {
+            Vector3Int bodyPosition = sNewGameHeadPosition;
+            bodyPosition.z -= i;
+            SnakePart bodyPart = new SnakePart(
+                Instantiate(mSnakeBodyPrefab, bodyPosition, Quaternion.identity),
+                bodyPosition,
+                Quaternion.identity);
+
+            mSnakeParts.Add(bodyPart);
+        }
 
         // Create RSO Snake
         CreateRSO_Snake();
@@ -268,19 +261,16 @@ public class DisplayManager : MonoBehaviour
 
     private Vector3 GenerateItemPosition()
     {
-        Vector3 itemPosition = Vector3.zero;
+        Vector3Int itemPosition = Vector3Int.zero;
         bool positionIsGood = false;
-        int minXZ = 1;
-        int maxX = 8;
-        int maxZ = 16;
-        float randomX;
-        float randomZ;
+        int randomX;
+        int randomZ;
 
         while (!positionIsGood)
         {
-            randomX = UnityEngine.Random.Range(minXZ, maxX);
-            randomZ = UnityEngine.Random.Range(minXZ, maxZ);
-            itemPosition = new Vector3(randomX, 0, randomZ);
+            randomX = UnityEngine.Random.Range(1, mSizeMap[0]);
+            randomZ = UnityEngine.Random.Range(1, mSizeMap[1]);
+            itemPosition = new Vector3Int(randomX, 0, randomZ);
             //Debug.Log("Random position: " + itemPosition);
             if (!mSnakePosRSO.Value.Contains(itemPosition))
             {

@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -10,8 +12,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private InputActionReference moveDownActionRef;
     [SerializeField] private InputActionReference moveRightActionRef;
     [SerializeField] private InputActionReference moveLeftActionRef;
+    [SerializeField] private InputActionReference menuActionRef;
 
-    private float mDefaultSpeed = 2.0f;
+    [SerializeField] private AudioMixer mAudioMixer;
+
+    private float mDefaultSpeed = 1.0f;
     // RSO
     [SerializeField] private RSO_Source mSourceRSO;
     [SerializeField] private RSO_MG_Result mResultRSO;
@@ -41,6 +46,8 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         DisableMoveInputs();
+
+        menuActionRef.action.performed -= OnMenuAction;
 
         mCollisionRSE.Event -= OnCollision;
         mEndRSE.Event -= OnGameEnded;
@@ -82,6 +89,8 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
+        AdjustMusicPitch();
+
 
         StartCoroutine(StartRoundCoroutine(growSnake));
     }
@@ -96,6 +105,12 @@ public class GameManager : MonoBehaviour
             mNewRoundRSE.Dispatch(growSnake);
     }
 
+    private void AdjustMusicPitch()
+    {
+        float newPitch = 1 + ((mSnakeSpeedRSO.Value - 1) / 10);
+        Debug.Log("GameManager.AdjustMusicPitch: New pitch = " + newPitch);
+        mAudioMixer.SetFloat("MusicPitch", newPitch);
+    }
 
 
     private void DisableMoveInputs()
@@ -115,15 +130,10 @@ public class GameManager : MonoBehaviour
             // Set life to 0
             mSnakeLifeRSO.Value = 0;
         }
-        else if (other.StartsWith("Item"))
+        else if (other.StartsWith("MiniGame"))
         {
             // Launch Mini Game
-            switch (other)
-            {
-                case "ItemBar":
-                    SceneManager.LoadScene(2);
-                    break;
-            }
+            SceneManager.LoadScene(other);
         }
     }
 
@@ -133,8 +143,19 @@ public class GameManager : MonoBehaviour
         DisableMoveInputs();
 
         // Check for high score and save
-
+        int currentHighScore = Int32.Parse(PlayerPrefs.GetString("HighScore", "0"));
+        if (mSnakeScoreRSO.Value > currentHighScore)
+        {
+            string newHighScore = mSnakeScoreRSO.Value.ToString();
+            PlayerPrefs.SetString("HighScore", newHighScore);
+        }
         // Add listener on key to return to menu
+        menuActionRef.action.performed += OnMenuAction;
+    }
+
+    private void OnMenuAction(InputAction.CallbackContext ctx)
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
     private void OnMoveUp(InputAction.CallbackContext ctx)

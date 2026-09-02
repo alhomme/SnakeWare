@@ -181,8 +181,41 @@
         {
             "name": "UI",
             "id": "272f6d14-89ba-496f-b7ff-215263d3219f",
-            "actions": [],
-            "bindings": []
+            "actions": [
+                {
+                    "name": "MenuAction",
+                    "type": "Button",
+                    "id": "fe79a8fd-5e29-4ba1-8b6c-3937bab06e99",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ce7dfd34-ba53-4d77-90d6-d3932a4d7bb1",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "MenuAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e4a90285-ad89-44b8-940c-340e1549ce7c",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "MenuAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

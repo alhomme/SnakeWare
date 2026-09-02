@@ -3,10 +3,10 @@ using UnityEngine;
 public class SnakePart
 {
     private GameObject mInstance;
-    private Vector3 mPosition;
+    private Vector3Int mPosition;
     private Quaternion mRotation;
 
-    public SnakePart(GameObject instance, Vector3 position, Quaternion rotation)
+    public SnakePart(GameObject instance, Vector3Int position, Quaternion rotation)
     {
         mInstance = instance;
         mPosition = position;
@@ -19,19 +19,19 @@ public class SnakePart
         set { mInstance = value; }
     }
 
-    public Vector3 Position
+    public Vector3Int Position
     {
         get { return mPosition; }
         set { mPosition = value; }
     }
 
-    public float PositionX
+    public int PositionX
     {
         get { return mPosition.x; }
         set { mPosition.x = value; }
     }
 
-    public float PositionZ
+    public int PositionZ
     {
         get { return mPosition.z; }
         set { mPosition.z = value; }

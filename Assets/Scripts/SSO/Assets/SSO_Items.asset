@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 32
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07c62f679a7018347aa2fabfb822d63f, type: 3}
+  m_Name: SSO_Items
+  m_EditorClassIdentifier: Assembly-CSharp::SSO_Items
+  mValue:
+  - {fileID: 3402294996306096638, guid: 021a0eaa67617ac479c275f5c646ff55, type: 3}
+  - {fileID: 1330581255142358446, guid: bc34c84b92e0088468b0589598370b7c, type: 3}
+  - {fileID: 4793681010437409340, guid: 810963c7ea3ea9549ba5f5c86f9923d4, type: 3}
+  - {fileID: 8098224875272150475, guid: 9383930ad53ad85488b532970968fe84, type: 3}

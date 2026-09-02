@@ -6,11 +6,11 @@ TagManager:
   tags:
   - Item
   - Wall
-  - ItemBar
-  - ItemQTE
-  - ItemMash
-  - ItemMemory
   - Snake
+  - MiniGame_Bar
+  - MiniGame_Mash
+  - MiniGame_Memory
+  - MiniGame_QTE
   layers:
   - Default
   - TransparentFX

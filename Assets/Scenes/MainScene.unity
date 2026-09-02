@@ -150,8 +150,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DisplayManager
   mSnakeHeadPrefab: {fileID: 449632685116981767, guid: 7c23e6929a92eed479d98b508022f66e, type: 3}
   mSnakeBodyPrefab: {fileID: 1362008941513415624, guid: a258d7b7f749e67418d508326aa50b75, type: 3}
-  mItemPrefabs:
-  - {fileID: 3402294996306096638, guid: 021a0eaa67617ac479c275f5c646ff55, type: 3}
   mSourceRSO: {fileID: 11400000, guid: dee2e2afa23416549ad6f5937484e735, type: 2}
   mSnakePosRSO: {fileID: 11400000, guid: 05b1902d4ddaa774aa71254dd9901eda, type: 2}
   mSnakeDirectionRSO: {fileID: 11400000, guid: b37f9f7bddb98754cb31a09fcd240a9e, type: 2}
@@ -159,6 +157,7 @@ MonoBehaviour:
   mSnakeHasMovedRSO: {fileID: 11400000, guid: 36ffe015dc5842c4090fa51ad58330fa, type: 2}
   mEndRSE: {fileID: 11400000, guid: 0f050212858da5a41b2e97670818a6d9, type: 2}
   mNewRoundRSE: {fileID: 11400000, guid: a3975401a6b38ae45bd269816677b499, type: 2}
+  mItemsSSO: {fileID: 11400000, guid: 32fe7d5c5a7b64b488a52a475e3600f3, type: 2}
 --- !u!4 &248471810
 Transform:
   m_ObjectHideFlags: 0
@@ -207,6 +206,8 @@ MonoBehaviour:
   moveDownActionRef: {fileID: -5331978680641592534, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   moveRightActionRef: {fileID: -4225590803077951190, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   moveLeftActionRef: {fileID: 9084805298149861233, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  menuActionRef: {fileID: 4490544453286138763, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  mAudioMixer: {fileID: 24100000, guid: 89414e011ff5c4e4fac1b560945c2a36, type: 2}
   mSourceRSO: {fileID: 11400000, guid: dee2e2afa23416549ad6f5937484e735, type: 2}
   mResultRSO: {fileID: 11400000, guid: 70f1c246c2f1dac43a2ef2d0f2980475, type: 2}
   mSnakeLifeRSO: {fileID: 11400000, guid: 2c67612c1e5587947aeba41f6592468e, type: 2}
@@ -833,6 +834,135 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5726007837937709452, guid: 6942b2d17f851dc41936520e4ec01d11, type: 3}
   m_PrefabInstance: {fileID: 2107586668}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1050880743
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1050880745}
+  - component: {fileID: 1050880744}
+  m_Layer: 0
+  m_Name: Toon Adventure Theme
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &1050880744
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050880743}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 4382103462454699944, guid: 89414e011ff5c4e4fac1b560945c2a36, type: 2}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 5fa01206a829f934b90ceecd812e209f, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &1050880745
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050880743}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1073590975
 GameObject:
   m_ObjectHideFlags: 0
@@ -1474,10 +1604,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1663,3 +1793,4 @@ SceneRoots:
   - {fileID: 1664687138}
   - {fileID: 1073590976}
   - {fileID: 2028347141}
+  - {fileID: 1050880745}
