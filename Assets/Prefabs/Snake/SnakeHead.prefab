@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1677939200395683846}
   - component: {fileID: 6396143436852618627}
   - component: {fileID: 8069998840329618256}
-  - component: {fileID: -8079775770407581685}
+  - component: {fileID: 4801099553284756232}
   m_Layer: 0
   m_Name: SnakeHead
   m_TagString: Snake
@@ -144,7 +144,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-8079775770407581685
+--- !u!114 &4801099553284756232
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -153,10 +153,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 449632685116981767}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 379645ee10f461c429f568f7a78b8a64, type: 3}
+  m_Script: {fileID: 11500000, guid: f7d00895e5d4a0b4db4595ea0eeb7f7d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SnakeManager
-  mCollisionRSE: {fileID: 11400000, guid: fdd5363af8be82d4cb5ffe19d83ee6af, type: 2}
+  m_EditorClassIdentifier: Assembly-CSharp::SnakeHead
+  m_CollisionRSE: {fileID: 11400000, guid: fdd5363af8be82d4cb5ffe19d83ee6af, type: 2}
+  m_LoadSceneRSE: {fileID: 11400000, guid: c16d36ab4633a4840bd7ae25dd500d5b, type: 2}
 --- !u!1 &3443532943707676750
 GameObject:
   m_ObjectHideFlags: 0
