@@ -1,8 +1,13 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SceneLoader : MonoBehaviour
 {
+    [SerializeField] Animator m_Transition;
+
     [SerializeField] RSE_LoadScene m_LoadSceneRSE;
 
     private string currentScene;
@@ -10,7 +15,7 @@ public class SceneLoader : MonoBehaviour
 
     private void OnEnable()
     {
-        currentScene = null;
+        currentScene = "StarterScene";
         m_LoadSceneRSE.Event += OnLoadScene;
     }
 
@@ -22,15 +27,22 @@ public class SceneLoader : MonoBehaviour
     private void OnLoadScene(string scene)
     {
         // Load scene
-        Debug.Log("SceneLoader: OnLoadScene: " + scene);
+        Debug.Log("SceneLoader: Unload " + currentScene);
+        SceneManager.UnloadSceneAsync(currentScene);
 
-        if (currentScene != null)
-        {
-            Debug.Log("SceneLoader: Unload " + currentScene);
-            SceneManager.UnloadSceneAsync(currentScene);
-        }
-
-        SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+        Debug.Log("SceneLoader: Load: " + scene);
+        StartCoroutine(LoadNextScene(scene));
         currentScene = scene;
+    }
+
+    private IEnumerator LoadNextScene(string scene)
+    {
+        // Play Transition
+        //m_Transition.SetTrigger("Start");
+        // Wait
+        //yield return new WaitForSeconds(1);
+        // Load Scene
+        yield return SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(scene));
     }
 }

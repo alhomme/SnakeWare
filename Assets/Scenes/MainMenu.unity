@@ -503,6 +503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
   m_PlayInput: {fileID: 4490544453286138763, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_QuitInput: {fileID: -5632870676970207047, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_HighScoreValue: {fileID: 818535141}
   m_LoadSceneRSE: {fileID: 11400000, guid: c16d36ab4633a4840bd7ae25dd500d5b, type: 2}
   m_NewGameRSE: {fileID: 11400000, guid: 2d785e023be33f740837f3a49a95abce, type: 2}

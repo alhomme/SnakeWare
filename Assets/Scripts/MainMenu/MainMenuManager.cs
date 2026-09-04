@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] private InputActionReference m_PlayInput;
+    [SerializeField] private InputActionReference m_QuitInput;
     [SerializeField] private TextMeshProUGUI m_HighScoreValue;
 
     [SerializeField] private RSE_LoadScene m_LoadSceneRSE;
@@ -39,5 +40,10 @@ public class MainMenuManager : MonoBehaviour
     {
         m_NewGameRSE.Dispatch();
         m_LoadSceneRSE.Dispatch("Arena");
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }

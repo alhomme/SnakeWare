@@ -36,7 +36,8 @@ public class SnakeMove : MonoBehaviour
 
     private void OnDisable()
     {
-        UnloadSnakeAndItem();
+        Debug.Log("SnakeMove.OnDisable");
+
         StopCoroutine(m_Coroutine);
         m_DirectionRSO.OnChanged -= OnDirectionChanged;
         m_CollisionRSE.Event -= OnCollision;
@@ -185,17 +186,7 @@ public class SnakeMove : MonoBehaviour
 
         if (other.StartsWith("MiniGame"))
         {
-            UnloadSnakeAndItem();
             m_LoadSceneRSE.Dispatch(other);
-        }
-    }
-
-    private void UnloadSnakeAndItem()
-    {
-        Destroy(m_ItemInstance);
-        foreach (SnakePart part in m_SnakeParts)
-        {
-            Destroy(part.Instance);
         }
     }
 }

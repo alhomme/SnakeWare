@@ -32,7 +32,7 @@ public class MG_BarManager : MonoBehaviour
 
     private IEnumerator WaitCoroutine()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(5);
 
         m_SuccessRSE.Dispatch();
 
