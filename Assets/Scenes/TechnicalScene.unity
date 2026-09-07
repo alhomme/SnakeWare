@@ -715,7 +715,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1021584245
 RectTransform:
   m_ObjectHideFlags: 0
@@ -847,6 +847,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
   m_Transition: {fileID: 1178473634}
   m_LoadSceneRSE: {fileID: 11400000, guid: c16d36ab4633a4840bd7ae25dd500d5b, type: 2}
+  m_SceneLoadedRSE: {fileID: 11400000, guid: e6fb9973d7d36554c8f82df411c6b995, type: 2}
 --- !u!95 &1178473634
 Animator:
   serializedVersion: 7
@@ -1436,7 +1437,7 @@ MonoBehaviour:
   m_AudioClipDefault: {fileID: 8300000, guid: 5fa01206a829f934b90ceecd812e209f, type: 3}
   m_AudioClipMG: {fileID: 8300000, guid: 178b60e6ad6425941b2fc01c6ffa1069, type: 3}
   m_SpeedRSO: {fileID: 11400000, guid: c9bfd03f808a3004facd43d2f9bf82e4, type: 2}
-  m_LoadScene: {fileID: 11400000, guid: c16d36ab4633a4840bd7ae25dd500d5b, type: 2}
+  m_SceneLoadedRSE: {fileID: 11400000, guid: e6fb9973d7d36554c8f82df411c6b995, type: 2}
 --- !u!1 &2028347136
 GameObject:
   m_ObjectHideFlags: 0

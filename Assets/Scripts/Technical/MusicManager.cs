@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -9,19 +10,26 @@ public class MusicManager : MonoBehaviour
     [SerializeField] private AudioClip m_AudioClipDefault;
     [SerializeField] private AudioClip m_AudioClipMG;
 
+    [SerializeField] private Dictionary<string, AudioClip> m_AudioClipDict;
+
     [SerializeField] private RSO_Speed m_SpeedRSO;
-    [SerializeField] private RSE_LoadScene m_LoadScene;
+    [SerializeField] private RSE_SceneLoaded m_SceneLoadedRSE;
 
     private void OnEnable()
     {
         m_SpeedRSO.OnChanged += OnSpeedChanged;
-        m_LoadScene.Event += OnLoadScene;
+        m_SceneLoadedRSE.Event += OnSceneLoaded;
+
+        m_AudioClipDict = new Dictionary<string, AudioClip>();
+        m_AudioClipDict.Add("MainMenu", m_AudioClipDefault);
+        m_AudioClipDict.Add("Arena", m_AudioClipDefault);
+        m_AudioClipDict.Add("MiniGame_Bar", m_AudioClipMG);
     }
 
     private void OnDisable()
     {
         m_SpeedRSO.OnChanged -= OnSpeedChanged;
-        m_LoadScene.Event -= OnLoadScene;
+        m_SceneLoadedRSE.Event -= OnSceneLoaded;
     }
 
     private void OnSpeedChanged(float speed)
@@ -32,24 +40,17 @@ public class MusicManager : MonoBehaviour
         m_AudioMixer.SetFloat("MusicPitch", newPitch);
     }
 
-    private void OnLoadScene(string scene)
+    private void OnSceneLoaded(string scene)
     {
-        Debug.Log("MusicManager.OnLoadScene");
+        // Change that to RSE_SceneLoaded
 
-        if (scene.StartsWith("MiniGame"))
+        Debug.Log("MusicManager.OnSceneLoaded");
+
+        if (m_AudioSource.clip != m_AudioClipDict[scene])
         {
             m_AudioSource.Stop();
-            m_AudioSource.clip = m_AudioClipMG;
+            m_AudioSource.clip = m_AudioClipDict[scene];
             m_AudioSource.Play();
-        }
-        else
-        {
-            if (m_AudioSource.clip != m_AudioClipDefault)
-            {
-                m_AudioSource.Stop();
-                m_AudioSource.clip = m_AudioClipDefault;
-                m_AudioSource.Play();
-            }
         }
     }
 }
