@@ -46,7 +46,7 @@ public class UiManager : MonoBehaviour
 
     private void OnLifeChanged(int newLife)
     {
-        Debug.Log("UI Manager: OnLifeChanged");
+        Debug.Log("UI Manager: OnLifeChanged, newLife = " + newLife);
         m_Life.sprite = m_LifeSprites[newLife];
     }
 

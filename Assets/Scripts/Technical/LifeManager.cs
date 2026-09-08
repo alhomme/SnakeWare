@@ -38,6 +38,6 @@ public class LifeManager : MonoBehaviour
 
     private void OnFail()
     {
-        m_LifeRSO.Value++;
+        m_LifeRSO.Value--;
     }
 }

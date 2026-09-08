@@ -14,6 +14,12 @@ public class MG_BarManager : MonoBehaviour
     [SerializeField] private RectTransform m_SafeZone;
     [SerializeField] private RectTransform m_Pointer;
 
+    [SerializeField] private Animator m_BallAnimator;
+    [SerializeField] private GameObject m_GoalPanel;
+    [SerializeField] private AudioSource m_KickAudioSource;
+    [SerializeField] private AudioSource m_CrowdGoalAudioSource;
+    [SerializeField] private AudioSource m_CrowdBooAudioSource;
+
     [SerializeField] private InputActionReference m_ActionInput;
 
     [SerializeField] private RSO_Speed m_SpeedRSO;
@@ -49,7 +55,7 @@ public class MG_BarManager : MonoBehaviour
     {
         if (m_MoveSlider)
         {
-            float speed = 500;// + (m_SpeedRSO.Value * 100);
+            float speed = 500 + (m_SpeedRSO.Value * 100);
             m_Pointer.position = Vector3.MoveTowards(m_Pointer.position, m_TargetPosition, speed * Time.deltaTime);
 
             if (Vector3.Distance(m_Pointer.position, m_StartPoint.position) < 0.1f)
@@ -83,32 +89,51 @@ public class MG_BarManager : MonoBehaviour
     {
         m_MoveSlider = false;
 
+        m_KickAudioSource.Play();
+
         if (RectTransformUtility.RectangleContainsScreenPoint(m_SafeZone, m_Pointer.position, null))
         {
-            Debug.Log("Success!");
+            StartCoroutine(MG_Success());
+            
         }
         else
         {
-            Debug.Log("Fail!");
+            StartCoroutine(MG_Fail());
         }
     }
 
-    private void MG_Success()
+    private IEnumerator MG_Success()
     {
         Debug.Log("MiniGame Success");
+        m_BallAnimator.SetTrigger("StartGoal");
+
+        yield return new WaitForSeconds(1f);
+        m_CrowdGoalAudioSource.Play();
+
+        m_GoalPanel.SetActive(true);
+
+        yield return new WaitForSeconds(2f);
+
         m_SuccessRSE.Dispatch();
 
         // Return to Arena
-        //m_LoadSceneRSE.Dispatch("Arena");
+        m_LoadSceneRSE.Dispatch("Arena");
     }
 
-    private void MG_Fail()
+    private IEnumerator MG_Fail()
     {
         Debug.Log("MiniGame Fail");
-        m_FailRSE.Dispatch();
+        m_BallAnimator.SetTrigger("StartMiss");
+        m_CrowdBooAudioSource.Play();
+
+        yield return new WaitForSeconds(0.5f);
+
+        yield return new WaitForSeconds(2f);
 
         // Return to Arena
-        //m_LoadSceneRSE.Dispatch("Arena");
+        m_LoadSceneRSE.Dispatch("Arena");
+
+        m_FailRSE.Dispatch();
     }
 
     private void OnDeath()

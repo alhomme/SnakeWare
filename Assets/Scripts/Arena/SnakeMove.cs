@@ -9,13 +9,14 @@ public class SnakeMove : MonoBehaviour
     private int[] m_SizeMap = { 8, 16 };
     private IEnumerator m_Coroutine;
     private List<SnakePart> m_SnakeParts;
-    private GameObject m_ItemInstance;
+    private bool m_IsDead = false;
 
     [SerializeField] private GameObject m_SnakeHeadPrefab;
     [SerializeField] private GameObject m_SnakeBodyPrefab;
 
     [SerializeField] private SSO_Items m_ItemsSSO;
 
+    [SerializeField] private RSO_Life m_LifeRSO;
     [SerializeField] private RSO_Direction m_DirectionRSO;
     [SerializeField] private RSO_Speed m_SpeedRSO;
     [SerializeField] private RSO_SnakePositions m_SnakePositionsRSO;
@@ -46,6 +47,10 @@ public class SnakeMove : MonoBehaviour
 
     private void Start()
     {
+        // Check if player still has life, useful when coming back of MG
+        if (m_LifeRSO.Value == 0)
+            m_IsDead = true;
+
         // Instantiate Snake
         InstantiateSnake();
         // Instantiate Item
@@ -65,7 +70,7 @@ public class SnakeMove : MonoBehaviour
 
     private IEnumerator MoveCoroutine()
     {
-        while (true)
+        while (!m_IsDead)
         {
             yield return new WaitForSeconds(1 / m_SpeedRSO.Value);
 
@@ -141,7 +146,7 @@ public class SnakeMove : MonoBehaviour
     {
         int randomItem = UnityEngine.Random.Range(0, m_ItemsSSO.Value.Count);
         Debug.Log("Item n°" + randomItem + " = " + m_ItemsSSO.Value[randomItem].tag);
-        m_ItemInstance = Instantiate(m_ItemsSSO.Value[randomItem], GenerateItemPosition(), Quaternion.identity);
+        Instantiate(m_ItemsSSO.Value[randomItem], GenerateItemPosition(), Quaternion.identity);
     }
 
     private Vector3 GenerateItemPosition()
@@ -175,6 +180,7 @@ public class SnakeMove : MonoBehaviour
 
     private void OnDeath()
     {
+        m_IsDead = true;
         StopCoroutine(m_Coroutine);
     }
 

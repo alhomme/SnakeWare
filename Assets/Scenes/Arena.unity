@@ -305,6 +305,7 @@ MonoBehaviour:
   m_SnakeHeadPrefab: {fileID: 449632685116981767, guid: 7c23e6929a92eed479d98b508022f66e, type: 3}
   m_SnakeBodyPrefab: {fileID: 1362008941513415624, guid: a258d7b7f749e67418d508326aa50b75, type: 3}
   m_ItemsSSO: {fileID: 11400000, guid: 32fe7d5c5a7b64b488a52a475e3600f3, type: 2}
+  m_LifeRSO: {fileID: 11400000, guid: 2c67612c1e5587947aeba41f6592468e, type: 2}
   m_DirectionRSO: {fileID: 11400000, guid: b37f9f7bddb98754cb31a09fcd240a9e, type: 2}
   m_SpeedRSO: {fileID: 11400000, guid: c9bfd03f808a3004facd43d2f9bf82e4, type: 2}
   m_SnakePositionsRSO: {fileID: 11400000, guid: 05b1902d4ddaa774aa71254dd9901eda, type: 2}
