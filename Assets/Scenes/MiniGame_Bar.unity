@@ -1542,13 +1542,14 @@ GameObject:
   - component: {fileID: 1454990899}
   - component: {fileID: 1454990898}
   - component: {fileID: 1454990897}
+  - component: {fileID: 1454990902}
   m_Layer: 5
   m_Name: IntroCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!225 &1454990897
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1558,8 +1559,8 @@ CanvasGroup:
   m_GameObject: {fileID: 1454990896}
   m_Enabled: 1
   m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &1454990898
 MonoBehaviour:
@@ -1645,6 +1646,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!95 &1454990902
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454990896}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 380cde3846fff9d448cb84e10584d692, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1486113487
 GameObject:
   m_ObjectHideFlags: 0
@@ -1873,14 +1896,15 @@ MonoBehaviour:
   m_SafeZone: {fileID: 95630380}
   m_Pointer: {fileID: 705265879}
   m_BallAnimator: {fileID: 461354774}
+  m_IntroAnimator: {fileID: 1454990902}
   m_GoalPanel: {fileID: 1680734705}
   m_KickAudioSource: {fileID: 413806128}
   m_CrowdGoalAudioSource: {fileID: 424934199}
   m_CrowdBooAudioSource: {fileID: 374808369}
   m_ActionInput: {fileID: -5662704012700353815, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_SpeedRSO: {fileID: 11400000, guid: c9bfd03f808a3004facd43d2f9bf82e4, type: 2}
-  m_DeathRSE: {fileID: 11400000, guid: 96d3c71e334a0874da044400bee84aa9, type: 2}
   m_LoadSceneRSE: {fileID: 11400000, guid: c16d36ab4633a4840bd7ae25dd500d5b, type: 2}
+  m_SceneLoadedRSE: {fileID: 11400000, guid: e6fb9973d7d36554c8f82df411c6b995, type: 2}
   m_SuccessRSE: {fileID: 11400000, guid: 25b8520ec8ed24c49ba79ce21b2ec84d, type: 2}
   m_FailRSE: {fileID: 11400000, guid: 1b7898a3967bd92449237e9fa68676dd, type: 2}
 --- !u!1001 &1795677007

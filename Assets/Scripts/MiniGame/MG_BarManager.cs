@@ -15,6 +15,7 @@ public class MG_BarManager : MonoBehaviour
     [SerializeField] private RectTransform m_Pointer;
 
     [SerializeField] private Animator m_BallAnimator;
+    [SerializeField] private Animator m_IntroAnimator;
     [SerializeField] private GameObject m_GoalPanel;
     [SerializeField] private AudioSource m_KickAudioSource;
     [SerializeField] private AudioSource m_CrowdGoalAudioSource;
@@ -24,8 +25,8 @@ public class MG_BarManager : MonoBehaviour
 
     [SerializeField] private RSO_Speed m_SpeedRSO;
 
-    [SerializeField] private RSE_Death m_DeathRSE;
     [SerializeField] private RSE_LoadScene m_LoadSceneRSE;
+    [SerializeField] private RSE_SceneLoaded m_SceneLoadedRSE;
     [SerializeField] private RSE_MG_Success m_SuccessRSE;
     [SerializeField] private RSE_MG_Fail m_FailRSE;
 
@@ -34,21 +35,14 @@ public class MG_BarManager : MonoBehaviour
 
     private void OnEnable()
     {
-        m_DeathRSE.Event += OnDeath;
+        m_SceneLoadedRSE.Event += OnSceneLoaded;
         m_MoveSlider = false;
     }
 
     private void OnDisable()
     {
-        m_DeathRSE.Event -= OnDeath;
+        m_SceneLoadedRSE.Event -= OnSceneLoaded;
         m_ActionInput.action.performed -= OnAction;
-    }
-
-    private void Start()
-    {
-        m_TargetPosition = m_EndPoint.position;
-
-        StartCoroutine(ShowIntroPanel());
     }
 
     private void Update()
@@ -74,9 +68,14 @@ public class MG_BarManager : MonoBehaviour
     {
         // Add fade animation
 
-        m_IntroPanel.SetActive(true);
-        yield return new WaitForSeconds(2);
-        m_IntroPanel.SetActive(false);
+        //m_PlayCanvas.SetActive(true);
+        m_TargetPosition = m_EndPoint.position;
+
+        //m_IntroPanel.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        m_IntroAnimator.SetTrigger("Start");
+        yield return new WaitForSeconds(1f);
+        //        m_IntroPanel.SetActive(false);
 
 
         m_ActionInput.action.performed += OnAction;
@@ -136,8 +135,10 @@ public class MG_BarManager : MonoBehaviour
         m_FailRSE.Dispatch();
     }
 
-    private void OnDeath()
+    private void OnSceneLoaded(string scene)
     {
-
+        if (scene ==  "MiniGame_Bar")
+            StartCoroutine(ShowIntroPanel());
     }
+
 }

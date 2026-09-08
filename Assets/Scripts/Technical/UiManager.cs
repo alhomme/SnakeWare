@@ -74,6 +74,7 @@ public class UiManager : MonoBehaviour
         // Load Menu
         m_Life.enabled = false;
         m_ScoreText.enabled = false;
+        m_GameOverPanel.SetActive(false);
         m_LoadSceneRSE.Dispatch("MainMenu");
     }
 }

@@ -45,15 +45,20 @@ public class SceneLoader : MonoBehaviour
 
 
         // Play Transition
-        //m_Transition.SetTrigger("Start");
+        m_Transition.SetTrigger("Start");
         // Wait
-        //yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1);
 
         SceneManager.UnloadSceneAsync(oldScene);
 
         // Load Scene
         yield return SceneManager.LoadSceneAsync(newScene, LoadSceneMode.Additive);
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(newScene));
+
+        // Play Transition
+        m_Transition.SetTrigger("End");
+        // Wait
+        yield return new WaitForSeconds(1);
 
         // Add RSE SceneLoaded
         m_SceneLoadedRSE.Dispatch(newScene);

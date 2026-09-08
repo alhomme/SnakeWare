@@ -42,8 +42,6 @@ public class MusicManager : MonoBehaviour
 
     private void OnSceneLoaded(string scene)
     {
-        // Change that to RSE_SceneLoaded
-
         Debug.Log("MusicManager.OnSceneLoaded");
 
         if (m_AudioSource.clip != m_AudioClipDict[scene])
