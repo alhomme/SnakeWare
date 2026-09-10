@@ -13,6 +13,8 @@ public class LifeManager : MonoBehaviour
         m_NewGameRSE.Event += OnNewGame;
         m_CollisionRSE.Event += OnCollision;
         m_FailRSE.Event += OnFail;
+
+        m_LifeRSO.Value = 3;
     }
 
     private void OnDisable()

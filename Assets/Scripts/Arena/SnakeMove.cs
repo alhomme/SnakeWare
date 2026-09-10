@@ -64,7 +64,7 @@ public class SnakeMove : MonoBehaviour
         // Wait 0.5 seconds before starting to move
         // Allows player to get ready
         // TODO: Add a "Ready ? GO!" Panel
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         StartCoroutine(m_Coroutine);
     }
 

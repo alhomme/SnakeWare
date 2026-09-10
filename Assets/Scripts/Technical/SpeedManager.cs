@@ -13,6 +13,8 @@ public class SpeedManager : MonoBehaviour
         m_NewGameRSE.Event += OnNewGame;
         m_DeathRSE.Event += OnDeath;
         m_SuccessRSE.Event += OnSuccess;
+
+        m_SpeedRSO.Value = 1.0f;
     }
 
     private void OnDisable()

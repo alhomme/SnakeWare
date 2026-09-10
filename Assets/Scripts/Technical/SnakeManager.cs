@@ -19,7 +19,7 @@ public class SnakeManager : MonoBehaviour
         m_MoveRSE.Event += OnSnakeMove;
         m_SuccessRSE.Event += OnSuccess;
 
-        
+        m_SnakePositionsRSO.Value = new List<Vector3Int>();
     }
 
     private void OnDisable()
@@ -31,7 +31,6 @@ public class SnakeManager : MonoBehaviour
 
     private void OnNewGame()
     {
-        m_SnakePositionsRSO.Value = new List<Vector3Int>();
         m_SnakePositionsRSO.Value.Clear();
 
         m_SnakePositionsRSO.Value.Add(m_NewGameHeadPosition);
@@ -54,6 +53,9 @@ public class SnakeManager : MonoBehaviour
     private void OnSuccess()
     {
         int lastIdx = m_SnakePositionsRSO.Value.Count - 1;
+
+        if (lastIdx < 0)
+            return ;
 
         int newX = m_SnakePositionsRSO.Value[lastIdx].x +
             (m_SnakePositionsRSO.Value[lastIdx].x - m_SnakePositionsRSO.Value[lastIdx - 1].x);

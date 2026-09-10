@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class MG_BarManager : MonoBehaviour
 {
-    [SerializeField] private GameObject m_IntroPanel;
+
     [SerializeField] private GameObject m_PlayCanvas;
     [SerializeField] private Transform m_StartPoint;
     [SerializeField] private Transform m_EndPoint;
@@ -17,9 +17,6 @@ public class MG_BarManager : MonoBehaviour
     [SerializeField] private Animator m_BallAnimator;
     [SerializeField] private Animator m_IntroAnimator;
     [SerializeField] private GameObject m_GoalPanel;
-    [SerializeField] private AudioSource m_KickAudioSource;
-    [SerializeField] private AudioSource m_CrowdGoalAudioSource;
-    [SerializeField] private AudioSource m_CrowdBooAudioSource;
 
     [SerializeField] private InputActionReference m_ActionInput;
 
@@ -29,6 +26,7 @@ public class MG_BarManager : MonoBehaviour
     [SerializeField] private RSE_SceneLoaded m_SceneLoadedRSE;
     [SerializeField] private RSE_MG_Success m_SuccessRSE;
     [SerializeField] private RSE_MG_Fail m_FailRSE;
+    [SerializeField] private RSE_PlaySFX m_PlaySFXRSE;
 
     private bool m_MoveSlider;
     private Vector3 m_TargetPosition;
@@ -66,8 +64,6 @@ public class MG_BarManager : MonoBehaviour
 
     private IEnumerator ShowIntroPanel()
     {
-        // Add fade animation
-
         //m_PlayCanvas.SetActive(true);
         m_TargetPosition = m_EndPoint.position;
 
@@ -87,8 +83,9 @@ public class MG_BarManager : MonoBehaviour
     private void OnAction(InputAction.CallbackContext ctx)
     {
         m_MoveSlider = false;
+        m_ActionInput.action.performed -= OnAction;
 
-        m_KickAudioSource.Play();
+        m_PlaySFXRSE.Dispatch("Kick");
 
         if (RectTransformUtility.RectangleContainsScreenPoint(m_SafeZone, m_Pointer.position, null))
         {
@@ -104,34 +101,35 @@ public class MG_BarManager : MonoBehaviour
     private IEnumerator MG_Success()
     {
         Debug.Log("MiniGame Success");
+
         m_BallAnimator.SetTrigger("StartGoal");
-
         yield return new WaitForSeconds(1f);
-        m_CrowdGoalAudioSource.Play();
-
+        
+        m_PlaySFXRSE.Dispatch("CrowdGoal");
         m_GoalPanel.SetActive(true);
-
         yield return new WaitForSeconds(2f);
 
         m_SuccessRSE.Dispatch();
 
         // Return to Arena
+        m_PlaySFXRSE.Dispatch("Stop");
         m_LoadSceneRSE.Dispatch("Arena");
     }
 
     private IEnumerator MG_Fail()
     {
         Debug.Log("MiniGame Fail");
-        m_BallAnimator.SetTrigger("StartMiss");
-        m_CrowdBooAudioSource.Play();
 
+        m_BallAnimator.SetTrigger("StartMiss");
         yield return new WaitForSeconds(0.5f);
 
+        m_PlaySFXRSE.Dispatch("CrowdBoo");
         yield return new WaitForSeconds(2f);
+
 
         // Return to Arena
         m_LoadSceneRSE.Dispatch("Arena");
-
+        m_PlaySFXRSE.Dispatch("Stop");
         m_FailRSE.Dispatch();
     }
 
