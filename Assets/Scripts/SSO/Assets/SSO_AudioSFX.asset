@@ -19,3 +19,5 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 61d245dcf89863743ae5e82d32646fa2, type: 3}
   - Key: CrowdBoo
     Clip: {fileID: 8300000, guid: 72ea2b15b8ab96e4cb0cc1a551197a62, type: 3}
+  - Key: Whistle
+    Clip: {fileID: 8300000, guid: 9daa820d327713c4aa11530e9b3dc4a7, type: 3}

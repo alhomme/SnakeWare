@@ -1024,6 +1024,8 @@ MonoBehaviour:
   m_LoadSceneRSE: {fileID: 11400000, guid: c16d36ab4633a4840bd7ae25dd500d5b, type: 2}
   m_SceneLoadedRSE: {fileID: 11400000, guid: e6fb9973d7d36554c8f82df411c6b995, type: 2}
   m_PlayMusicRSE: {fileID: 11400000, guid: 3ff4f9f5a3159a245acfeba3fa5d6388, type: 2}
+  m_DeathRSE: {fileID: 11400000, guid: 96d3c71e334a0874da044400bee84aa9, type: 2}
+  m_NewGameRSE: {fileID: 11400000, guid: 2d785e023be33f740837f3a49a95abce, type: 2}
 --- !u!95 &1178473634
 Animator:
   serializedVersion: 7
