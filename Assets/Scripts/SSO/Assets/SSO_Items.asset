@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: SSO_Items
   m_EditorClassIdentifier: Assembly-CSharp::SSO_Items
   mValue:
-  - {fileID: 4793681010437409340, guid: 810963c7ea3ea9549ba5f5c86f9923d4, type: 3}
+  - {fileID: 1330581255142358446, guid: bc34c84b92e0088468b0589598370b7c, type: 3}

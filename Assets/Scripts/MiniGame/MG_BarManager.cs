@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class MG_BarManager : MonoBehaviour
 {
-
     [SerializeField] private GameObject m_PlayCanvas;
     [SerializeField] private Transform m_StartPoint;
     [SerializeField] private Transform m_EndPoint;
@@ -64,20 +63,15 @@ public class MG_BarManager : MonoBehaviour
 
     private IEnumerator ShowIntroPanel()
     {
-        //m_PlayCanvas.SetActive(true);
         m_TargetPosition = m_EndPoint.position;
 
-        //m_IntroPanel.SetActive(true);
         yield return new WaitForSeconds(1f);
         m_IntroAnimator.SetTrigger("Start");
         yield return new WaitForSeconds(1f);
-        //        m_IntroPanel.SetActive(false);
-
 
         m_ActionInput.action.performed += OnAction;
         m_PlayCanvas.SetActive(true);
         m_MoveSlider = true;
-        //StartCoroutine(PlayCoroutine());
     }
 
     private void OnAction(InputAction.CallbackContext ctx)
@@ -124,7 +118,7 @@ public class MG_BarManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         m_PlaySFXRSE.Dispatch("CrowdBoo");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
 
 
         // Return to Arena
