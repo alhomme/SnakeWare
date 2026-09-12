@@ -29,6 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MiniGame_Mash.unity
     guid: d27d7b3eda6922246969b97c6b2e876f
+  - enabled: 1
+    path: Assets/Scenes/MiniGame_Combo.unity
+    guid: c033a6178a124ae42a3ff930a08e3840
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

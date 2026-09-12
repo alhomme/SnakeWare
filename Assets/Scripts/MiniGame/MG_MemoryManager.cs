@@ -132,11 +132,10 @@ public class MG_MemoryManager : MonoBehaviour
         m_GoalPanel.SetActive(true);
         yield return new WaitForSeconds(2f);
 
-        m_SuccessRSE.Dispatch();
-
         // Return to Arena
-        m_LoadSceneRSE.Dispatch("Arena");
+        m_SuccessRSE.Dispatch();
         m_PlaySFXRSE.Dispatch("Stop");
+        m_LoadSceneRSE.Dispatch("Arena");
     }
 
     private IEnumerator MG_Fail()
@@ -155,11 +154,10 @@ public class MG_MemoryManager : MonoBehaviour
         m_PlaySFXRSE.Dispatch("CrowdBoo");
         yield return new WaitForSeconds(3f);
 
-        m_FailRSE.Dispatch();
-
         // Return to Arena
-        m_LoadSceneRSE.Dispatch("Arena");
+        m_FailRSE.Dispatch();
         m_PlaySFXRSE.Dispatch("Stop");
+        m_LoadSceneRSE.Dispatch("Arena");
 
     }
 

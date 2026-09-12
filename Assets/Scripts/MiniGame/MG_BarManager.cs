@@ -103,9 +103,8 @@ public class MG_BarManager : MonoBehaviour
         m_GoalPanel.SetActive(true);
         yield return new WaitForSeconds(2f);
 
-        m_SuccessRSE.Dispatch();
-
         // Return to Arena
+        m_SuccessRSE.Dispatch();
         m_PlaySFXRSE.Dispatch("Stop");
         m_LoadSceneRSE.Dispatch("Arena");
     }
@@ -122,9 +121,9 @@ public class MG_BarManager : MonoBehaviour
 
 
         // Return to Arena
-        m_LoadSceneRSE.Dispatch("Arena");
-        m_PlaySFXRSE.Dispatch("Stop");
         m_FailRSE.Dispatch();
+        m_PlaySFXRSE.Dispatch("Stop");
+        m_LoadSceneRSE.Dispatch("Arena");
     }
 
     private void OnSceneLoaded(string scene)

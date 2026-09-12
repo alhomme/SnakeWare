@@ -67,8 +67,6 @@ public class MG_QteManager : MonoBehaviour
         m_Inputs[1].action.performed -= OnButton2;
         m_Inputs[2].action.performed -= OnButton3;
         m_Inputs[3].action.performed -= OnButton4;
-
-        StopAllCoroutines();
     }
 
     private void Start()
@@ -136,9 +134,8 @@ public class MG_QteManager : MonoBehaviour
         m_GoalPanel.SetActive(true);
         yield return new WaitForSeconds(2f);
 
-        m_SuccessRSE.Dispatch();
-
         // Return to Arena
+        m_SuccessRSE.Dispatch();
         m_PlaySFXRSE.Dispatch("Stop");
         m_LoadSceneRSE.Dispatch("Arena");
     }
@@ -158,9 +155,9 @@ public class MG_QteManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
         // Return to Arena
-        m_LoadSceneRSE.Dispatch("Arena");
-        m_PlaySFXRSE.Dispatch("Stop");
         m_FailRSE.Dispatch();
+        m_PlaySFXRSE.Dispatch("Stop");
+        m_LoadSceneRSE.Dispatch("Arena");
     }
 
     private IEnumerator StartNext()

@@ -25,3 +25,5 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 178b60e6ad6425941b2fc01c6ffa1069, type: 3}
   - Key: MiniGame_Mash
     Clip: {fileID: 8300000, guid: 178b60e6ad6425941b2fc01c6ffa1069, type: 3}
+  - Key: MiniGame_Combo
+    Clip: {fileID: 8300000, guid: 178b60e6ad6425941b2fc01c6ffa1069, type: 3}

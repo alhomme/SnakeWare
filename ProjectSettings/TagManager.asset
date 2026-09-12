@@ -11,6 +11,7 @@ TagManager:
   - MiniGame_Mash
   - MiniGame_Memory
   - MiniGame_QTE
+  - MiniGame_Combo
   layers:
   - Default
   - TransparentFX
