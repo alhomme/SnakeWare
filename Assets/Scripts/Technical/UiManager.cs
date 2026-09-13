@@ -40,19 +40,18 @@ public class UiManager : MonoBehaviour
 
     private void OnScoreChanged(int newScore)
     {
-        //Debug.Log("UI Manager: OnScoreChanged");
         m_ScoreText.text = newScore.ToString();
     }
 
     private void OnLifeChanged(int newLife)
     {
-        Debug.Log("UI Manager: OnLifeChanged, newLife = " + newLife);
+        Utils.Log("UI Manager: OnLifeChanged, newLife = " + newLife);
         m_Life.sprite = m_LifeSprites[newLife];
     }
 
     private void OnNewGame()
     {
-        Debug.Log("UI Manager: OnNewGame");
+        Utils.Log("UI Manager: OnNewGame");
         m_GameOverPanel.SetActive(false);
         m_Life.enabled = true;
         m_ScoreText.enabled = true;
@@ -60,7 +59,7 @@ public class UiManager : MonoBehaviour
 
     private void OnDeath()
     {
-        Debug.Log("UiManager: OnGameEnded");
+        Utils.Log("UiManager: OnGameEnded");
         m_Life.sprite = m_LifeSprites[0];
         m_GameOverScoreText.text = m_ScoreRSO.Value.ToString();
         m_GameOverPanel.SetActive(true);

@@ -28,6 +28,8 @@ public class SnakeMove : MonoBehaviour
 
     private void OnEnable()
     {
+        Utils.Log("SnakeMove.OnEnable");
+
         m_DirectionRSO.OnChanged += OnDirectionChanged;
         m_CollisionRSE.Event += OnCollision;
         m_DeathRSE.Event += OnDeath;
@@ -37,7 +39,7 @@ public class SnakeMove : MonoBehaviour
 
     private void OnDisable()
     {
-        Debug.Log("SnakeMove.OnDisable");
+        Utils.Log("SnakeMove.OnDisable");
 
         StopCoroutine(m_Coroutine);
         m_DirectionRSO.OnChanged -= OnDirectionChanged;
@@ -47,6 +49,8 @@ public class SnakeMove : MonoBehaviour
 
     private void Start()
     {
+        Utils.Log("SnakeMove.Start");
+
         // Check if player still has life, useful when coming back of MG
         if (m_LifeRSO.Value == 0)
             m_IsDead = true;
@@ -61,15 +65,17 @@ public class SnakeMove : MonoBehaviour
 
     private IEnumerator StartRoundCoroutine()
     {
+        Utils.Log("SnakeMove.StartRoundCoroutine");
         // Wait 0.5 seconds before starting to move
         // Allows player to get ready
-        // TODO: Add a "Ready ? GO!" Panel
         yield return new WaitForSeconds(1f);
         StartCoroutine(m_Coroutine);
     }
 
     private IEnumerator MoveCoroutine()
     {
+        Utils.Log("SnakeMove.MoveCoroutine");
+
         while (!m_IsDead)
         {
             yield return new WaitForSeconds(1 / m_SpeedRSO.Value);
@@ -111,6 +117,8 @@ public class SnakeMove : MonoBehaviour
 
     private void InstantiateSnake()
     {
+        Utils.Log("SnakeMove.InstantiateSnake");
+
         m_SnakeParts = new List<SnakePart>();
 
         // Head
@@ -144,13 +152,17 @@ public class SnakeMove : MonoBehaviour
 
     private void InstantiateItem()
     {
+        Utils.Log("SnakeMove.InstantiateSnake");
+
         int randomItem = UnityEngine.Random.Range(0, m_ItemsSSO.Value.Count);
-        Debug.Log("Item n°" + randomItem + " = " + m_ItemsSSO.Value[randomItem].tag);
+        Utils.Log("Item n°" + randomItem + " = " + m_ItemsSSO.Value[randomItem].tag);
         Instantiate(m_ItemsSSO.Value[randomItem], GenerateItemPosition(), Quaternion.identity);
     }
 
     private Vector3 GenerateItemPosition()
     {
+        Utils.Log("SnakeMove.GenerateItemPosition");
+
         Vector3Int itemPosition = Vector3Int.zero;
         bool positionIsGood = false;
         int randomX;
@@ -161,32 +173,34 @@ public class SnakeMove : MonoBehaviour
             randomX = UnityEngine.Random.Range(1, m_SizeMap[0]);
             randomZ = UnityEngine.Random.Range(1, m_SizeMap[1]);
             itemPosition = new Vector3Int(randomX, 0, randomZ);
-            //Debug.Log("Random position: " + itemPosition);
             if (!m_SnakePositionsRSO.Value.Contains(itemPosition))
             {
-                //Debug.Log("Valid random postion");
                 positionIsGood = true;
             }
         }
 
-        Debug.Log("Item position: " + itemPosition);
+        Utils.Log("Item position: " + itemPosition);
         return itemPosition;
     }
 
     private void OnDirectionChanged(SnakeDirection direction)
     {
+        Utils.Log("SnakeMove.OnDirectionChanged");
+
         m_SnakeParts[0].Instance.transform.rotation = Quaternion.Euler(0, (float)direction, 0);
     }
 
     private void OnDeath()
     {
+        Utils.Log("SnakeMove.OnDeath");
+
         m_IsDead = true;
         StopCoroutine(m_Coroutine);
     }
 
     private void OnCollision(string other)
     {
-        Debug.Log("SnakeMove.OnCollision: " + other);
+        Utils.Log("SnakeMove.OnCollision: " + other);
 
         StopCoroutine(m_Coroutine);
 

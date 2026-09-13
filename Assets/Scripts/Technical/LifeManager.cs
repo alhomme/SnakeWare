@@ -31,7 +31,7 @@ public class LifeManager : MonoBehaviour
 
     private void OnCollision(string other)
     {
-        Debug.Log("LifeManager.OnCollision " + other);
+        Utils.Log("LifeManager.OnCollision " + other);
         if (other == "Wall" || other == "Snake")
         {
             m_LifeRSO.Value = 0;

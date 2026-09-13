@@ -55,7 +55,7 @@ public class MG_QteManager : MonoBehaviour
         m_MaxTime = 2f;
         m_MaxTime -= (m_SpeedRSO.Value - 1f) / 10f;
 
-        Debug.Log("Max Time = " + m_MaxTime);
+        Utils.Log("Max Time = " + m_MaxTime);
     }
 
     private void OnDisable()
@@ -124,7 +124,7 @@ public class MG_QteManager : MonoBehaviour
 
     private IEnumerator MG_Success()
     {
-        Debug.Log("MiniGame Success");
+        Utils.Log("MiniGame Success");
 
         m_PlaySFXRSE.Dispatch("Kick");
         m_BallAnimator.SetTrigger("Success");
@@ -142,7 +142,7 @@ public class MG_QteManager : MonoBehaviour
 
     private IEnumerator MG_Fail()
     {
-        Debug.Log("MiniGame Fail");
+        Utils.Log("MiniGame Fail");
 
         if (m_Step == 2)
             m_CameraPC.enabled = false;
@@ -162,7 +162,7 @@ public class MG_QteManager : MonoBehaviour
 
     private IEnumerator StartNext()
     {
-        Debug.Log("Start next QTE");
+        Utils.Log("Start next QTE");
 
         m_BallAnimator.SetTrigger("Success");
         yield return new WaitForSeconds(2f);
@@ -189,7 +189,7 @@ public class MG_QteManager : MonoBehaviour
 
     private void CreateQTE()
     {
-        Debug.Log("QTEManager.CreateQTE");
+        Utils.Log("QTEManager.CreateQTE");
 
         SetRandomInput();
         UpdateQTE();

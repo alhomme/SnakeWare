@@ -94,7 +94,7 @@ public class MG_BarManager : MonoBehaviour
 
     private IEnumerator MG_Success()
     {
-        Debug.Log("MiniGame Success");
+        Utils.Log("MiniGame Success");
 
         m_BallAnimator.SetTrigger("StartGoal");
         yield return new WaitForSeconds(1f);
@@ -111,7 +111,7 @@ public class MG_BarManager : MonoBehaviour
 
     private IEnumerator MG_Fail()
     {
-        Debug.Log("MiniGame Fail");
+        Utils.Log("MiniGame Fail");
 
         m_BallAnimator.SetTrigger("StartMiss");
         yield return new WaitForSeconds(0.5f);

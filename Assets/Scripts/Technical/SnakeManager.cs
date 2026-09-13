@@ -64,7 +64,7 @@ public class SnakeManager : MonoBehaviour
 
         Vector3Int newPosition = new Vector3Int(newX, m_SnakePositionsRSO.Value[lastIdx].y, newZ);
 
-        //Debug.Log("New part at " + newPosition);
+        Utils.Log("New part at " + newPosition);
 
         // Correct the position if it's outside the map
         if (newPosition.x < 0 || newPosition.x > m_SizeMap[0])
@@ -75,7 +75,7 @@ public class SnakeManager : MonoBehaviour
             else
                 newPosition.z--;
 
-            //Debug.Log("Corrected position at " + newPosition);
+            Utils.Log("Corrected position at " + newPosition);
         }
         if (newPosition.z < 0 || newPosition.z > m_SizeMap[1])
         {
@@ -85,7 +85,7 @@ public class SnakeManager : MonoBehaviour
             else
                 newPosition.x--;
 
-            //Debug.Log("Corrected position at " + newPosition);
+            Utils.Log("Corrected position at " + newPosition);
         }
 
         m_SnakePositionsRSO.Value.Add(newPosition);

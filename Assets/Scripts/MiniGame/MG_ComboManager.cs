@@ -138,7 +138,7 @@ public class MG_ComboManager : MonoBehaviour
 
     private IEnumerator MG_Success()
     {
-        Debug.Log("MiniGame Success");
+        Utils.Log("MiniGame Success");
 
         m_SnakeAnimator.SetTrigger("Success");
         //yield return new WaitForSeconds(1f);
@@ -154,7 +154,7 @@ public class MG_ComboManager : MonoBehaviour
 
     private IEnumerator MG_Fail()
     {
-        Debug.Log("MiniGame Fail");
+        Utils.Log("MiniGame Fail");
 
         m_SnakeAnimator.SetTrigger("Fail");
         //yield return new WaitForSeconds(0.5f);
@@ -182,7 +182,7 @@ public class MG_ComboManager : MonoBehaviour
 
         m_InputCount = 0;
 
-        PrintSequence(m_Sequence);
+        Utils.LogList(m_Sequence);
         UpdateUI();
     }
 
@@ -247,19 +247,5 @@ public class MG_ComboManager : MonoBehaviour
             m_UsedInputs = m_KeyboardInputs;
         else if (newInputType == InputType.Gamepad)
             m_UsedInputs = m_GamepadInputs;
-    }
-
-    private void PrintSequence(List<int> sequence)
-    {
-        string str = "Sequence = { ";
-
-        foreach (int i in sequence)
-        {
-            str += i.ToString();
-            str += " ";
-        }
-        str += "}";
-
-        Debug.Log(str);
     }
 }

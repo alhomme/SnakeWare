@@ -100,7 +100,6 @@ public class MG_MemoryManager : MonoBehaviour
         for (int i = 0; i < m_GoalCount; i++)
         {
             m_RandomInput = UnityEngine.Random.Range(0, 4);
-            Debug.Log("Show Input: " + m_RandomInput);
             m_Sequence.Add(m_RandomInput);
 
             m_InputsText[m_RandomInput].text = m_UsedInputs[m_RandomInput];
@@ -111,13 +110,13 @@ public class MG_MemoryManager : MonoBehaviour
 
         // Whistle sfx
         m_PlaySFXRSE.Dispatch("Whistle");
-        PrintSequence(m_Sequence);
+        Utils.LogList(m_Sequence);
         m_IsListening = true;
     }
 
     private IEnumerator MG_Success()
     {
-        Debug.Log("MiniGame Success");
+        Utils.Log("MiniGame Success");
         m_IsListening = false;
 
         // Play Success sfx
@@ -140,7 +139,7 @@ public class MG_MemoryManager : MonoBehaviour
 
     private IEnumerator MG_Fail()
     {
-        Debug.Log("MiniGame Fail");
+        Utils.Log("MiniGame Fail");
         m_IsListening = false;
 
         // Add error sfx
@@ -266,19 +265,5 @@ public class MG_MemoryManager : MonoBehaviour
             m_UsedInputs = m_KeyboardInputs;
         else if (newInputType == InputType.Gamepad)
             m_UsedInputs = m_GamepadInputs;
-    }
-
-    private void PrintSequence(List<int> sequence)
-    {
-        string str = "Sequence = { ";
-
-        foreach (int i in sequence)
-        {
-            str += i.ToString();
-            str += " ";
-        }
-        str += "}";
-
-        Debug.Log(str);
     }
 }

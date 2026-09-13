@@ -9,8 +9,6 @@ public class ScoreManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("ScoreManager: OnEnable");
-
         m_NewGameRSE.Event += OnNewGame;
         m_SuccessRSE.Event += OnSuccess;
     }

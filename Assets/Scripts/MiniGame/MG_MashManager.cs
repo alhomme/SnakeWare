@@ -112,7 +112,7 @@ public class MG_MashManager : MonoBehaviour
 
     private IEnumerator MG_Success()
     {
-        Debug.Log("MiniGame Success");
+        Utils.Log("MiniGame Success");
         m_ActionInput.action.performed -= OnAction;
         m_PlayCanvas.SetActive(false);
 
@@ -133,7 +133,7 @@ public class MG_MashManager : MonoBehaviour
 
     private IEnumerator MG_Fail()
     {
-        Debug.Log("MiniGame Fail");
+        Utils.Log("MiniGame Fail");
         m_ActionInput.action.performed -= OnAction;
         m_PlayCanvas.SetActive(false);
         m_PlaySFXRSE.Dispatch("Kick");

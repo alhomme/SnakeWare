@@ -28,6 +28,8 @@ public class MainMenuManager : MonoBehaviour
     {
         string highScore = PlayerPrefs.GetString("HighScore", "0");
         m_HighScoreValue.text = highScore;
+
+        Utils.Log("MainMenuManager.Start: High Score = " + highScore);
     }
 
     private void LaunchGameKey(InputAction.CallbackContext ctx)

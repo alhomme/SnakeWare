@@ -9,7 +9,7 @@ public class StarterManager : MonoBehaviour
 
     public IEnumerator Start()
     {
-        Debug.Log("StarterManager");
+        Utils.Log("StarterManager");
 
         yield return SceneManager.LoadSceneAsync("TechnicalScene", LoadSceneMode.Additive);
 

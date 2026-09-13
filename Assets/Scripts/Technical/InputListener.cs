@@ -20,7 +20,6 @@ public class InputListener : MonoBehaviour
 
     private void OnInput(InputAction.CallbackContext ctx)
     {
-        //Debug.Log(ctx.control.device);
         if (ctx.control.device is Keyboard)
         {
             m_InputTypeRSO.Value = InputType.Keyboard;

@@ -8,14 +8,9 @@ public class SnakeHead : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Utils.Log("SnakeHead.OnTriggerEnter");
         // Send Event when colliding
-        Debug.Log("Collision with " + other.tag);
+        Utils.Log("Collision with " + other.tag);
         m_CollisionRSE.Dispatch(other.tag);
-
-        if (other.tag.StartsWith("MiniGame"))
-        {
-            // Launch Mini Game
-            
-        }
     }
 }

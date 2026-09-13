@@ -67,7 +67,7 @@ public class AudioManager : MonoBehaviour
     {
         // Adjust pitch
         float newPitch = 1 + ((speed - 1) / 10);
-        Debug.Log("MusicManager.OnSpeedChanged: New pitch = " + newPitch);
+        Utils.Log("MusicManager.OnSpeedChanged: New pitch = " + newPitch);
         m_AudioMixer.SetFloat("MusicPitch", newPitch);
     }
 }

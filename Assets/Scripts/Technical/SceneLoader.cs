@@ -37,10 +37,9 @@ public class SceneLoader : MonoBehaviour
     private void OnLoadScene(string scene)
     {
         // Load scene
-        Debug.Log("SceneLoader: Unload " + m_CurrentScene);
-        //SceneManager.UnloadSceneAsync(currentScene);
+        Utils.Log("SceneLoader: Unload " + m_CurrentScene);
+        Utils.Log("SceneLoader: Load: " + scene);
 
-        Debug.Log("SceneLoader: Load: " + scene);
         StartCoroutine(LoadNextScene(m_CurrentScene, scene));
         m_CurrentScene = scene;
     }
