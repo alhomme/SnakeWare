@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -63,6 +64,10 @@ public class UiManager : MonoBehaviour
         m_Life.sprite = m_LifeSprites[0];
         m_GameOverScoreText.text = m_ScoreRSO.Value.ToString();
         m_GameOverPanel.SetActive(true);
+
+        string currentHighScore = PlayerPrefs.GetString("HighScore", "0");
+        if (m_ScoreRSO.Value > Int32.Parse(currentHighScore))
+            PlayerPrefs.SetString("HighScore", m_ScoreRSO.Value.ToString());
 
         m_ActionInput.action.performed += OnAction;
     }

@@ -17,11 +17,13 @@ public class MainMenuManager : MonoBehaviour
     private void OnEnable()
     {
         m_PlayInput.action.performed += LaunchGameKey;
+        m_QuitInput.action.performed += ExitGame;
     }
 
     private void OnDisable()
     {
         m_PlayInput.action.performed -= LaunchGameKey;
+        m_QuitInput.action.performed -= ExitGame;
     }
 
     private void Start()
@@ -44,7 +46,7 @@ public class MainMenuManager : MonoBehaviour
         m_LoadSceneRSE.Dispatch("Arena");
     }
 
-    public void ExitGame()
+    public void ExitGame(InputAction.CallbackContext ctx)
     {
         Application.Quit();
     }

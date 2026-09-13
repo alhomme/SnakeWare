@@ -16,7 +16,7 @@ public class DirectionManager : MonoBehaviour
 
     [SerializeField] private RSE_NewGame m_NewGameRSE;
     [SerializeField] private RSE_Death m_DeathRSE;
-    [SerializeField] private RSE_LoadScene m_LoadSceneRSE;
+    [SerializeField] private RSE_SceneLoaded m_SceneLoadedRSE;
     [SerializeField] private RSE_Move m_MoveRSE;
 
     private void OnEnable()
@@ -25,7 +25,7 @@ public class DirectionManager : MonoBehaviour
 
         m_NewGameRSE.Event += OnNewGame;
         m_DeathRSE.Event += OnDeath;
-        m_LoadSceneRSE.Event += OnLoadScene;
+        m_SceneLoadedRSE.Event += OnSceneLoaded;
         m_MoveRSE.Event += OnSnakeMove;
     }
 
@@ -33,7 +33,7 @@ public class DirectionManager : MonoBehaviour
     {
         m_NewGameRSE.Event -= OnNewGame;
         m_DeathRSE.Event -= OnDeath;
-        m_LoadSceneRSE.Event -= OnLoadScene;
+        m_SceneLoadedRSE.Event -= OnSceneLoaded;
         m_MoveRSE.Event -= OnSnakeMove;
     }
 
@@ -47,7 +47,7 @@ public class DirectionManager : MonoBehaviour
         DisableMoveInputs();
     }
 
-    private void OnLoadScene(string scene)
+    private void OnSceneLoaded(string scene)
     {
         if (scene == "Arena")
             EnableMoveInputs();
